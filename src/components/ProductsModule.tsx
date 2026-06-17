@@ -18,62 +18,12 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
-export default function ProductsModule() {
-  // Pre-populated World Cup 2026 packages from the image
-  const initialProducts: Product[] = [
-    {
-      id: '1',
-      name: 'PAQUETE AFICIONADO',
-      price: 350,
-      isActive: true,
-      items: [
-        '1 Charola de elote desgranado',
-        '16 costillas cortas de elote',
-        '1 charola de rodajas de elote',
-        '3 sabritas a elegir',
-        '3 refrescos de 400ml (Sabor a elegir)'
-      ]
-    },
-    {
-      id: '2',
-      name: 'PAQUETE CAMPEÓN',
-      price: 450,
-      isActive: true,
-      items: [
-        '3 Maruchaskas (Sabor de maruchan y sabritas a elegir)',
-        '3 Elotes empanizados (Sabritas a elegir)',
-        '3 Refrescos de 400ml (Sabor a elegir)'
-      ]
-    },
-    {
-      id: '3',
-      name: 'PAQUETE REPECHAJE',
-      price: 350,
-      isActive: true,
-      items: [
-        '10 Tostadas',
-        '1/2 kg de trompa curtida',
-        '1/2 kg de cuero curtido',
-        '1 lts de salsa jerezana',
-        '1 charola de rodajas de elote',
-        '3 refrescos de 400ml (Sabor a elegir)'
-      ]
-    },
-    {
-      id: '4',
-      name: 'PAQUETE FANÁTICO',
-      price: 360,
-      isActive: true,
-      items: [
-        '1 charola de elote con arrachera',
-        '1 charola de elote con champiñones',
-        '1 charola de elote con rajas',
-        '3 refrescos de 400ml (Sabor a elegir)'
-      ]
-    }
-  ];
+interface ProductsModuleProps {
+  products: Product[];
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+}
 
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+export default function ProductsModule({ products, setProducts }: ProductsModuleProps) {
   const [searchQuery, setSearchQuery] = useState('');
   
   // Modals / Form States

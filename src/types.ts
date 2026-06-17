@@ -14,3 +14,22 @@ export interface Product {
   isActive: boolean;
 }
 
+export interface Employee {
+  id: string;
+  name: string;
+  role: string;
+  phone: string;
+  email: string;
+  branch: string;
+  status: 'Activo' | 'Inactivo';
+}
+
+export interface UserProfile {
+  name: string;
+  email: string;
+  phone: string;
+  role: string;
+  photoUrl: string;
+  branch: string;
+}
+

@@ -1,12 +1,13 @@
-import { ModuleId } from '../types';
+import { ModuleId, UserProfile } from '../types';
 import { BarChart3, ShoppingBag, Users, User, ArrowLeftRight } from 'lucide-react';
 
 interface SidebarProps {
   activeModule: ModuleId;
   setActiveModule: (module: ModuleId) => void;
+  profile: UserProfile;
 }
 
-export default function Sidebar({ activeModule, setActiveModule }: SidebarProps) {
+export default function Sidebar({ activeModule, setActiveModule, profile }: SidebarProps) {
   const logoUrl = 'https://appdesignproyectos.com/laeloteria.png';
 
   const menuItems = [
@@ -77,12 +78,21 @@ export default function Sidebar({ activeModule, setActiveModule }: SidebarProps)
       {/* Sidebar Footer with system metadata information */}
       <div className="p-4 border-t border-white/5 bg-black/10">
         <div className="flex items-center gap-3 bg-white/5 rounded-xl p-3 border border-white/5">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-elote-yellow to-elote-gold flex items-center justify-center text-xs font-bold text-elote-dark">
-            AD
-          </div>
+          {profile.photoUrl ? (
+            <img 
+              src={profile.photoUrl} 
+              className="w-8 h-8 rounded-full object-cover border border-[#FCD34D]/25 shrink-0" 
+              alt="User"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-elote-yellow to-elote-gold flex items-center justify-center text-xs font-bold text-elote-dark shrink-0">
+              {profile.name?.split(' ').map(n=>n[0]).slice(0, 2).join('').toUpperCase() || 'AD'}
+            </div>
+          )}
           <div className="flex-1 overflow-hidden">
-            <h4 className="text-xs font-bold text-white truncate">Administrador</h4>
-            <p className="text-[10px] text-white/45 truncate">La Elotería Zacatecas</p>
+            <h4 className="text-xs font-bold text-white truncate">{profile.name}</h4>
+            <p className="text-[10px] text-white/45 truncate">{profile.role}</p>
           </div>
           <div className="w-2 h-2 rounded-full bg-elote-green shadow-sm shadow-elote-green/50 animate-pulse"></div>
         </div>

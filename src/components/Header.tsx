@@ -1,11 +1,12 @@
-import { ModuleId } from '../types';
+import { ModuleId, UserProfile } from '../types';
 import { Calendar, Globe2, User, ChevronRight } from 'lucide-react';
 
 interface HeaderProps {
   activeModule: ModuleId;
+  profile: UserProfile;
 }
 
-export default function Header({ activeModule }: HeaderProps) {
+export default function Header({ activeModule, profile }: HeaderProps) {
   const logoUrl = 'https://appdesignproyectos.com/laeloteria.png';
 
   const getModuleTitle = (modId: ModuleId) => {
@@ -84,13 +85,22 @@ export default function Header({ activeModule }: HeaderProps) {
           </div>
 
           {/* Active Admin session pill */}
-          <div className="flex items-center gap-2 self-center bg-elote-cream border border-elote-dark/10 rounded-full px-3 py-1.5">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-elote-green opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-elote-green"></span>
-            </span>
-            <span className="text-xs font-semibold text-elote-dark tracking-tight font-sans">
-              admin_laeloteria
+          <div className="flex items-center gap-2 self-center bg-elote-cream border border-elote-dark/10 rounded-full px-3 py-1.5 font-semibold">
+            {profile.photoUrl ? (
+              <img 
+                src={profile.photoUrl} 
+                className="w-5 h-5 rounded-full object-cover border border-[#064E3B]/20" 
+                alt="Mini Profile"
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-elote-green opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-elote-green"></span>
+              </span>
+            )}
+            <span className="text-xs text-elote-dark tracking-tight font-mono">
+              {profile.name.toLowerCase().replace(/\s+/g, '_')}
             </span>
           </div>
         </div>
