@@ -9,6 +9,7 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import MobileBottomNav from './components/MobileBottomNav';
 import ModuleUnderConstruction from './components/ModuleUnderConstruction';
+import ProductsModule from './components/ProductsModule';
 import { Sparkles, Utensils, Star, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -28,12 +29,24 @@ export default function App() {
         <Header activeModule={activeModule} />
 
         {/* 4. Active Module Space */}
-        <main className="flex-grow flex flex-col justify-center items-center py-10 px-4 md:px-8">
-          <div className="w-full max-w-4xl flex-grow flex flex-col justify-center">
+        <main className={`flex-grow flex flex-col py-8 px-4 md:px-8 ${activeModule === 'productos' ? 'justify-start' : 'justify-center items-center'}`}>
+          <div className="w-full max-w-4xl">
             
             {/* Render selected Under Construction module under the same context */}
             <AnimatePresence mode="wait">
-              <ModuleUnderConstruction key={activeModule} id={activeModule} />
+              {activeModule === 'productos' ? (
+                <motion.div
+                  key="productos"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ProductsModule />
+                </motion.div>
+              ) : (
+                <ModuleUnderConstruction key={activeModule} id={activeModule} />
+              )}
             </AnimatePresence>
 
           </div>

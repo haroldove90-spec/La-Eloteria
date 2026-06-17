@@ -5,3 +5,12 @@ export interface NavigationItem {
   label: string;
   icon: string; // Icon name from lucide-react represented as string
 }
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  items: string[];
+  isActive: boolean;
+}
+
