@@ -1,0 +1,6 @@
+{
+  "name": "La Eloteria de Zacatecas",
+  "description": "Dashboard de administración para La Elotería de Zacatecas con módulos de Métricas, Productos, Empleados y Perfil del usuario.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
