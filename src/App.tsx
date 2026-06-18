@@ -7,6 +7,7 @@ import MetricsModule from './components/MetricsModule';
 import ProductsModule from './components/ProductsModule';
 import EmployeesModule from './components/EmployeesModule';
 import UserProfileModule from './components/UserProfileModule';
+import AttendanceModule from './components/AttendanceModule';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
@@ -180,6 +181,8 @@ export default function App() {
         return <EmployeesModule employees={employees} setEmployees={setEmployees} />;
       case 'perfil':
         return <UserProfileModule profile={profile} setProfile={setProfile} />;
+      case 'asistencia':
+        return <AttendanceModule employees={employees} profile={profile} />;
       default:
         return <MetricsModule products={products} employees={employees} />;
     }

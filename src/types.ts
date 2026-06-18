@@ -1,4 +1,4 @@
-export type ModuleId = 'metricas' | 'productos' | 'empleados' | 'perfil';
+export type ModuleId = 'metricas' | 'productos' | 'empleados' | 'asistencia' | 'perfil';
 
 export interface NavigationItem {
   id: ModuleId;
@@ -28,8 +28,19 @@ export interface UserProfile {
   name: string;
   email: string;
   phone: string;
-  role: string;
+  role: 'Administrador General' | 'Gerente de Sucursal';
   photoUrl: string;
   branch: string;
+}
+
+export interface AttendanceRecord {
+  id: string;
+  employeeId: string;
+  employeeName: string;
+  date: string;
+  checkIn: string;
+  checkOut: string | null;
+  status: 'Puntual' | 'Retardo' | 'Falta' | 'Justificado';
+  notes?: string;
 }
 

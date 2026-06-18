@@ -1,5 +1,5 @@
 import { ModuleId, UserProfile } from '../types';
-import { BarChart3, ShoppingBag, Users, User, ArrowLeftRight } from 'lucide-react';
+import { BarChart3, ShoppingBag, Users, UserCheck, User } from 'lucide-react';
 
 interface SidebarProps {
   activeModule: ModuleId;
@@ -14,6 +14,7 @@ export default function Sidebar({ activeModule, setActiveModule, profile }: Side
     { id: 'metricas' as ModuleId, label: 'Métricas', icon: BarChart3, color: 'text-elote-yellow' },
     { id: 'productos' as ModuleId, label: 'Productos', icon: ShoppingBag, color: 'text-elote-green' },
     { id: 'empleados' as ModuleId, label: 'Empleados', icon: Users, color: 'text-elote-red' },
+    { id: 'asistencia' as ModuleId, label: 'Control de Asistencia', icon: UserCheck, color: 'text-emerald-400' },
     { id: 'perfil' as ModuleId, label: 'Perfil del usuario', icon: User, color: 'text-elote-gold' },
   ];
 
@@ -21,12 +22,11 @@ export default function Sidebar({ activeModule, setActiveModule, profile }: Side
     <aside className="w-64 bg-elote-dark text-white flex-col h-screen sticky top-0 left-0 hidden md:flex border-r border-white/5 z-20">
       {/* Brand Header */}
       <div className="p-6 border-b border-white/5 flex flex-col items-center justify-center gap-3">
-        <div className="relative group">
-          <div className="absolute -inset-1.5 bg-gradient-to-r from-elote-yellow via-elote-green to-elote-red rounded-full opacity-60 group-hover:opacity-100 blur-sm transition duration-500"></div>
+        <div className="relative group flex items-center justify-center">
           <img 
             src={logoUrl} 
             alt="La Elotería Logo" 
-            className="w-20 h-20 bg-white p-1 rounded-full relative z-10 object-contain shadow-lg border border-white/10"
+            className="w-24 h-24 object-contain relative z-10 transition duration-300 hover:scale-105"
             referrerPolicy="no-referrer"
           />
         </div>

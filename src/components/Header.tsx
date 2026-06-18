@@ -17,6 +17,8 @@ export default function Header({ activeModule, profile }: HeaderProps) {
         return 'Gestión de Productos';
       case 'empleados':
         return 'Control de Empleados';
+      case 'asistencia':
+        return 'Control de Asistencia';
       case 'perfil':
         return 'Mi perfil de usuario';
       default:
@@ -34,27 +36,26 @@ export default function Header({ activeModule, profile }: HeaderProps) {
   });
 
   return (
-    <header className="bg-white border-b border-elote-dark/5 px-6 py-4 sticky top-0 z-10 shadow-sm">
+    <header className="bg-white/95 backdrop-blur-md border-b border-elote-dark/5 px-4 md:px-6 py-3 sticky top-0 z-40 shadow-xs">
       <div className="flex items-center justify-between gap-4 max-w-7xl mx-auto">
         {/* Left Side: Logo and dynamic module paths */}
-        <div className="flex items-center gap-4">
-          {/* Logo prominently displayed in the header for desktop and tablet as requested */}
-          <div className="flex items-center gap-3">
-            <div className="bg-elote-cream p-1.5 rounded-full border border-elote-dark/5 flex items-center justify-center">
-              <img 
-                src={logoUrl} 
-                alt="La Elotería Icon" 
-                className="w-10 h-10 object-contain"
-                referrerPolicy="no-referrer"
-              />
-            </div>
+        <div className="flex items-center gap-3">
+          {/* Logo prominently displayed, un-encapsulated for full visibility */}
+          <img 
+            src={logoUrl} 
+            alt="La Elotería Logo" 
+            className="w-14 h-14 md:w-16 md:h-16 object-contain shrink-0 transition duration-200 select-none"
+            referrerPolicy="no-referrer"
+          />
+          
+          <div className="flex flex-col">
             {/* Title for fullscreen and tablet */}
             <div className="hidden sm:block">
-              <h1 className="font-sans font-extrabold text-lg text-[#064E3B] tracking-tight leading-none">
+              <h1 className="font-sans font-extrabold text-base md:text-lg text-[#064E3B] tracking-tight leading-none">
                 La Elotería de Zacatecas <span className="text-amber-500 font-light">|</span> <span className="font-medium text-gray-500 text-sm">Panel Principal</span>
               </h1>
-              <div className="flex items-center text-[10px] text-gray-400 gap-1 mt-1.5 font-mono uppercase tracking-wider">
-                <span>Administrador</span>
+              <div className="flex items-center text-[10px] text-gray-400 gap-1 mt-1 font-mono uppercase tracking-wider">
+                <span>{profile.role}</span>
                 <ChevronRight className="w-3 h-3" />
                 <span className="text-[#166534] font-bold">{getModuleTitle(activeModule)}</span>
               </div>

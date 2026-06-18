@@ -1,5 +1,5 @@
 import { ModuleId } from '../types';
-import { BarChart3, ShoppingBag, Users, User } from 'lucide-react';
+import { BarChart3, ShoppingBag, Users, UserCheck, User } from 'lucide-react';
 
 interface MobileBottomNavProps {
   activeModule: ModuleId;
@@ -11,6 +11,7 @@ export default function MobileBottomNav({ activeModule, setActiveModule }: Mobil
     { id: 'metricas' as ModuleId, label: 'Métricas', icon: BarChart3, color: 'text-elote-yellow' },
     { id: 'productos' as ModuleId, label: 'Productos', icon: ShoppingBag, color: 'text-elote-green' },
     { id: 'empleados' as ModuleId, label: 'Empleados', icon: Users, color: 'text-elote-red' },
+    { id: 'asistencia' as ModuleId, label: 'Asistencia', icon: UserCheck, color: 'text-emerald-400' },
     { id: 'perfil' as ModuleId, label: 'Perfil', icon: User, color: 'text-elote-gold' },
   ];
 

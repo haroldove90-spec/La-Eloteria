@@ -28,6 +28,7 @@ export default function UserProfileModule({ profile, setProfile }: UserProfileMo
   const [email, setEmail] = useState(profile.email);
   const [phone, setPhone] = useState(profile.phone);
   const [branch, setBranch] = useState(profile.branch);
+  const [role, setRole] = useState<'Administrador General' | 'Gerente de Sucursal'>(profile.role);
   const [photoUrl, setPhotoUrl] = useState(profile.photoUrl);
 
   // Password & Security form states
@@ -97,7 +98,8 @@ export default function UserProfileModule({ profile, setProfile }: UserProfileMo
         name: name.trim(),
         email: email.trim(),
         phone: phone.trim(),
-        branch
+        branch,
+        role: role
       };
       setProfile(updated);
       setIsUpdatingInfo(false);
@@ -276,13 +278,15 @@ export default function UserProfileModule({ profile, setProfile }: UserProfileMo
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-gray-400 uppercase tracking-widest font-mono">Rol Jerárquico</label>
-                  <input 
-                    type="text"
-                    value={profile.role}
-                    disabled
-                    className="w-full px-4 py-2 rounded-xl border border-gray-200 bg-gray-50 text-xs text-gray-500 font-bold font-mono cursor-not-allowed"
-                  />
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-widest font-mono">Rol Jerárquico</label>
+                  <select 
+                    value={role}
+                    onChange={(e) => setRole(e.target.value as 'Administrador General' | 'Gerente de Sucursal')}
+                    className="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-[#064E3B] text-sm text-[#111827] font-semibold bg-white"
+                  >
+                    <option value="Administrador General">🏷️ Administrador General</option>
+                    <option value="Gerente de Sucursal">🧑‍💼 Gerente de Sucursal</option>
+                  </select>
                 </div>
               </div>
 
