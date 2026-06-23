@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ModuleId, Product, Employee, UserProfile } from './types';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
@@ -8,10 +8,49 @@ import ProductsModule from './components/ProductsModule';
 import EmployeesModule from './components/EmployeesModule';
 import UserProfileModule from './components/UserProfileModule';
 import AttendanceModule from './components/AttendanceModule';
+import POSModule from './components/POSModule';
+import InstallPwaModal from './components/InstallPwaModal';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
   const [activeModule, setActiveModule] = useState<ModuleId>('metricas');
+
+  // PWA states
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isInstallable, setIsInstallable] = useState(false);
+  const [isPwaModalOpen, setIsPwaModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setIsInstallable(true);
+      console.log('beforeinstallprompt event triggered & saved');
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    // Check if ya standalone
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsInstallable(false);
+    }
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const handleNativeInstall = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User installation finished with outcome: ${outcome}`);
+      setDeferredPrompt(null);
+      setIsInstallable(false);
+      setIsPwaModalOpen(false);
+    }
+  };
+
 
   // Shared state: products
   const [products, setProducts] = useState<Product[]>([
@@ -183,6 +222,8 @@ export default function App() {
         return <UserProfileModule profile={profile} setProfile={setProfile} />;
       case 'asistencia':
         return <AttendanceModule employees={employees} profile={profile} />;
+      case 'pos':
+        return <POSModule products={products} profile={profile} />;
       default:
         return <MetricsModule products={products} employees={employees} />;
     }
@@ -195,10 +236,10 @@ export default function App() {
       <Sidebar activeModule={activeModule} setActiveModule={setActiveModule} profile={profile} />
 
       {/* 2. Main content container */}
-      <div className="flex-1 flex flex-col min-h-screen overflow-x-hidden pb-16 md:pb-0">
+      <div className="flex-grow flex flex-col min-h-screen overflow-x-hidden pb-16 md:pb-0">
         
-        {/* 3. Top Header */}
-        <Header activeModule={activeModule} profile={profile} />
+        {/* 3. Top Header with PWA installation callback */}
+        <Header activeModule={activeModule} profile={profile} onInstallClick={() => setIsPwaModalOpen(true)} />
 
         {/* 4. Active Module Space */}
         <main className="flex-grow flex flex-col py-8 px-4 md:px-8 items-center">
@@ -223,6 +264,18 @@ export default function App() {
         <MobileBottomNav activeModule={activeModule} setActiveModule={setActiveModule} />
 
       </div>
+
+      {/* 6. PWA Installation Instruction & Prompt Modal */}
+      <AnimatePresence>
+        {isPwaModalOpen && (
+          <InstallPwaModal 
+            isOpen={isPwaModalOpen}
+            onClose={() => setIsPwaModalOpen(false)}
+            onNativeInstall={handleNativeInstall}
+            isNativeSupported={!!deferredPrompt}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

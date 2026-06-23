@@ -1,12 +1,13 @@
 import { ModuleId, UserProfile } from '../types';
-import { Calendar, Globe2, User, ChevronRight } from 'lucide-react';
+import { Calendar, Globe2, User, ChevronRight, Download } from 'lucide-react';
 
 interface HeaderProps {
   activeModule: ModuleId;
   profile: UserProfile;
+  onInstallClick: () => void;
 }
 
-export default function Header({ activeModule, profile }: HeaderProps) {
+export default function Header({ activeModule, profile, onInstallClick }: HeaderProps) {
   const logoUrl = 'https://appdesignproyectos.com/laeloteria.png';
 
   const getModuleTitle = (modId: ModuleId) => {
@@ -19,6 +20,8 @@ export default function Header({ activeModule, profile }: HeaderProps) {
         return 'Control de Empleados';
       case 'asistencia':
         return 'Control de Asistencia';
+      case 'pos':
+        return 'Punto de Venta / Caja';
       case 'perfil':
         return 'Mi perfil de usuario';
       default:
@@ -84,6 +87,18 @@ export default function Header({ activeModule, profile }: HeaderProps) {
             <Globe2 className="w-4 h-4 text-elote-yellow" />
             <span>Zacatecas, MX</span>
           </div>
+
+          {/* PWA Install Button */}
+          <button
+            onClick={onInstallClick}
+            className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-black text-xs px-3.5 py-1.5 rounded-full shadow-xs hover:shadow-sm transition-all hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
+            style={{ contentVisibility: 'auto' }}
+            title="Instalar Eloteria en tu pantalla de inicio"
+          >
+            <Download className="w-3.5 h-3.5 animate-bounce" />
+            <span className="hidden xs:inline">Instalar App</span>
+            <span className="xs:hidden">Instalar</span>
+          </button>
 
           {/* Active Admin session pill */}
           <div className="flex items-center gap-2 self-center bg-elote-cream border border-elote-dark/10 rounded-full px-3 py-1.5 font-semibold">

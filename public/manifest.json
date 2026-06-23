@@ -1,0 +1,22 @@
+{
+  "name": "Eloteria",
+  "short_name": "Eloteria",
+  "description": "Sistema de Control de Asistencia y Gestión para La Elotería de Zacatecas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFDEC",
+  "theme_color": "#064E3B",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://appdesignproyectos.com/laeloterialogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://appdesignproyectos.com/laeloterialogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

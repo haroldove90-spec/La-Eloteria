@@ -1,4 +1,4 @@
-export type ModuleId = 'metricas' | 'productos' | 'empleados' | 'asistencia' | 'perfil';
+export type ModuleId = 'metricas' | 'productos' | 'empleados' | 'asistencia' | 'pos' | 'perfil';
 
 export interface NavigationItem {
   id: ModuleId;
